@@ -1,0 +1,13 @@
+
+
+
+user
+
+dashboard => apres paiment  redirect sur son dashboard avec la liste de ses commandes (trasnforme le panier en commande apres paiment)
+
+
+
+admin
+
+=> liste des commandes
+=> ajout de produits + categorie + upload d'image + liste des commandes + facturations + KPI

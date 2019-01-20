@@ -61,6 +61,18 @@ class Charge
      */
     private $number;
 
+    /**
+     * One Charge has One Command.
+     * @ORM\OneToOne(targetEntity="Command", inversedBy="charge")
+     * @ORM\JoinColumn(name="command_id", referencedColumnName="id")
+     */
+    private $command;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $amount;
+
 
     /**
      * @ORM\PrePersist
@@ -166,6 +178,42 @@ class Charge
     public function setNumber($number): void
     {
         $this->number = $number;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getCommand(): ?Command
+    {
+        return $this->command;
+    }
+
+    public function setCommand(?Command $command): self
+    {
+        $this->command = $command;
+
+        return $this;
+    }
+
+    public function getAmount(): ?int
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(int $amount): self
+    {
+        $this->amount = $amount;
+
+        return $this;
     }
 
 

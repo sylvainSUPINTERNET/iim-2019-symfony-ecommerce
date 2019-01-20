@@ -17,20 +17,20 @@
                             <th class="column-5">Total</th>
                         </tr>
                         {% set subTotal = 0 %}
-                        {% for item in carts[0].cartProducts %}
-                            {% set subTotal = subTotal + item.product.price %}
+                        {% for index, product in cart.cartProducts %}
+                            {% set subTotal = subTotal + product.product.price %}
                             <tr class="table-row">
                                 <td class="column-1">
                                     <div class="cart-img-product b-rad-4 o-f-hidden">
-                                        <img src="{{ item.product.pictureUrl }}" alt="IMG-PRODUCT">
+                                        <img src="{{ product.product.pictureUrl }}" alt="IMG-PRODUCT">
                                     </div>
                                 </td>
-                                <td class="column-2">{{ item.product.name }}</td>
-                                <td class="column-3">{{ item.product.price | price_format }}</td>
+                                <td class="column-2">{{ product.product.name }}</td>
+                                <td class="column-3">{{ product.product.price | price_format }}</td>
                                 <td class="column-4 text-center">
-                                    <div>{{ item.quantity }}</div>
+                                    {{ cart.cartProducts[index].quantity }}
                                 </td>
-                                <td class="column-5">{{ item.product.price | price_format }}</td>
+                                <td class="column-5">{{ product. product.price | price_format }}</td>
                             </tr>
                         {% endfor %}
 
@@ -44,7 +44,8 @@
                 </div>
 
                 <div class="size10 trans-0-4 m-t-10 m-b-10 btn">
-                    <a href="{{ path('collections') }}" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">Add other products</a>
+                    <a href="{{ path('collections') }}" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">Add
+                        other products</a>
                 </div>
             </div>
 
@@ -87,16 +88,14 @@
 					</span>
 
                     <span class="m-text21 w-size20 w-full-sm">
-                        {% set subTotal = subTotal + 10 %}
-						{{ subTotal | price_format }}
+                        {% set subTotal = subTotal %}
+                        {{ subTotal | price_format }}
 					</span>
                 </div>
 
                 <div class="size15 trans-0-4">
                     <!-- Button -->
-                    <a href="{{ path('charge') }}" class="btn btn-lg btn-primary">
-                        Payment
-                    </a>
+                    <a href="{{ path('charge') }}" class="btn btn-primary">Payment</a>
                 </div>
             </div>
         </div>

@@ -17,15 +17,15 @@ class CartController extends AbstractController
     /**
      * @Route("/cart", name="cart", methods={"GET"})
      */
-    public function cart()
+    public function cart(SessionInterface $session)
     {
+        $cartId = $session->get('cart');
 
-        $repoUser = $this->getDoctrine()->getRepository(User::class);
-        $user = $repoUser->find($this->getUser()->getId());
-        $carts = $user->getCarts();
+        $repoCart = $this->getDoctrine()->getRepository(Cart::class);
+
 
         return $this->render('cart/index.html.twig', [
-            'carts' => $carts,
+            'cart' => $repoCart->find($cartId),
         ]);
     }
 

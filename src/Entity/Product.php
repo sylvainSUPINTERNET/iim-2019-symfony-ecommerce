@@ -56,6 +56,12 @@ class Product
     private $pictureUrl;
 
     /**
+     * Many Groups have Many Users.
+     * @ORM\ManyToMany(targetEntity="Command", mappedBy="products")
+     */
+    private $commands;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $dateAdd;
@@ -68,6 +74,11 @@ class Product
     public function __construct()
     {
         $this->cartProducts = new ArrayCollection();
+        $this->commands = new ArrayCollection();
+    }
+    public function __toString()
+    {
+       return $this->name;
     }
 
     public function getId(): ?int
@@ -201,4 +212,34 @@ class Product
 
         return $this;
     }
+
+    /**
+     * @return Collection|Command[]
+     */
+    public function getCommands(): Collection
+    {
+        return $this->commands;
+    }
+
+    public function addCommand(Command $command): self
+    {
+        if (!$this->commands->contains($command)) {
+            $this->commands[] = $command;
+            $command->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommand(Command $command): self
+    {
+        if ($this->commands->contains($command)) {
+            $this->commands->removeElement($command);
+            $command->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+
 }

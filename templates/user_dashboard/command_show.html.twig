@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" aria-current="page"><a href="{{ path('dashboard_commands') }}">Commands</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Resume</li>
+        </ol>
+    </nav>
+    <section class="cart bgwhite p-t-70 p-b-100">
+        <div class="container">
+            <!-- Cart item -->
+            <div class="container-table-cart pos-relative">
+                <div class="wrap-table-shopping-cart bgwhite">
+                    <table class="table-shopping-cart">
+                        <tr class="table-head">
+                            <th class="column-1"></th>
+                            <th class="column-2">Product</th>
+                            <th class="column-3">Price</th>
+                        </tr>
+                        {% set subTotal = 0 %}
+                        {% for product in command.products %}
+                            {% set subTotal = subTotal + product.price %}
+                            <tr class="table-row">
+                                <td class="column-1">
+                                    <div class="cart-img-product b-rad-4 o-f-hidden">
+                                        <img src="{{ product.pictureUrl }}" alt="IMG-PRODUCT">
+                                    </div>
+                                </td>
+                                <td class="column-2">{{ product.name }}</td>
+                                <td class="column-3">{{ product.price | price_format }}</td>
+                            </tr>
+                        {% endfor %}
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </section>
+{% endblock %}

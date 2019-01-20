@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection as DoctrineCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -44,6 +45,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->carts = new ArrayCollection();
+        $this->commands = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -62,6 +64,12 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Command", mappedBy="user")
+     */
+    private $commands;
+
 
     /**
      * A visual identifier that represents this user.
@@ -149,6 +157,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($cart->getCollection() === $this) {
                 $cart->setCollection(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Command[]
+     */
+    public function getCommands()
+    {
+        return $this->commands;
+    }
+
+    public function addCommand(Command $command): self
+    {
+        if (!$this->commands->contains($command)) {
+            $this->commands[] = $command;
+            $command->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommand(Command $command): self
+    {
+        if ($this->commands->contains($command)) {
+            $this->commands->removeElement($command);
+            // set the owning side to null (unless already changed)
+            if ($command->getUser() === $this) {
+                $command->setUser(null);
             }
         }
 
