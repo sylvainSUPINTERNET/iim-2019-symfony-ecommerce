@@ -1,4 +1,5 @@
 <!-- Header cart noti -->
+<span class="header-icons-noti">{{ cart.cartProducts|length }}</span>
 <div class="header-cart header-dropdown">
     <ul class="header-cart-wrapitem">
 
@@ -29,7 +30,7 @@
     <div class="header-cart-buttons">
         <div class="header-cart-wrapbtn">
             <!-- Button -->
-            <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+            <a href="{{ path('cart') }}" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
                 View Cart
             </a>
         </div>

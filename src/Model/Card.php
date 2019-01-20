@@ -12,6 +12,8 @@ class Card
 
     private $cvv;
 
+    private $address;
+
     /**
      * @return mixed
      */
@@ -74,6 +76,22 @@ class Card
     public function setCvv($cvv): void
     {
         $this->cvv = $cvv;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param mixed $address
+     */
+    public function setAddress($address): void
+    {
+        $this->address = $address;
     }
 
 

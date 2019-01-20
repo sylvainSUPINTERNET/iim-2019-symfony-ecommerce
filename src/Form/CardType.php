@@ -38,6 +38,7 @@ class CardType extends AbstractType
         $builder->add('cvv', TextType::class, [
             'constraints' => new Regex('/[0-9]{3}/')
         ]);
+        $builder->add('address', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

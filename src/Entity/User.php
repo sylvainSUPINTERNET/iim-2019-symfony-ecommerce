@@ -127,7 +127,7 @@ class User implements UserInterface
     /**
      * @return Collection|Cart[]
      */
-    public function getCarts(): Collection
+    public function getCarts()
     {
         return $this->carts;
     }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Cart;
 use App\Entity\CartProduct;
 use App\Entity\Product;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,25 +19,16 @@ class CartController extends AbstractController
      */
     public function cart()
     {
+
+        $repoUser = $this->getDoctrine()->getRepository(User::class);
+        $user = $repoUser->find($this->getUser()->getId());
+        $carts = $user->getCarts();
+
         return $this->render('cart/index.html.twig', [
-            'controller_name' => 'CartController',
+            'carts' => $carts,
         ]);
     }
 
-    /**
-     * @Route("/cart.json", name="cart_json", methods={"GET"})
-     */
-    public function cartJson()
-    {
-        $cart = [
-            'products' => [
-                'id'       => 1,
-                'quantity' => 2
-            ]
-        ];
-
-        return new JsonResponse($cart);
-    }
 
     /**
      * @Route("/cart/add.json", name="add_cart_json", methods={"POST"})
@@ -61,7 +53,7 @@ class CartController extends AbstractController
 
                 if (!$cartId) {
                     $cart = new Cart();
-
+                    $cart->setUser($this->getUser());
                     $objectManager->persist($cart);
                     $objectManager->flush();
 
