@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Collections{% endblock %}
+
+{% block body %}
+    <div class="row">
+    {% for collection in collections %}
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{ collection.pictureUrl }}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ collection.name }}</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet est dui. In mollis tortor vel nulla condimentum, sed imperdiet lorem ornare. Maecenas venenatis efficitur scelerisque</p>
+                    <a href="{{ path('collection_products', {'slug_collection': collection.slug, 'collection_id': collection.id}) }}" class="flex-c-m size2 bo-rad-23 s-text2 bgwhite hov1 trans-0-4" tabindex="0">
+                        Shop Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

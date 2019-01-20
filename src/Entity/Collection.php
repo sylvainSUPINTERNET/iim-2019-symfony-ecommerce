@@ -103,7 +103,7 @@ class Collection
     /**
      * @return Collection|Product[]
      */
-    public function getProducts(): Collection
+    public function getProducts()
     {
         return $this->products;
     }

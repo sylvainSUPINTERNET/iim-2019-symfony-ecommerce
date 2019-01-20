@@ -44,6 +44,7 @@ class CartController extends AbstractController
     public function addToCartJson(Request $request, SessionInterface $session)
     {
         $repositoryP = $this->getDoctrine()->getRepository(Product::class);
+
         $product     = $repositoryP->find($request->request->get('product_id'));
 
         $objectManager = $this->getDoctrine()->getManager();

@@ -1,0 +1,26 @@
+<!-- Menu -->
+<div class="wrap_menu">
+    <nav class="menu">
+        <ul class="main_menu">
+
+            <li class="sale-noti">
+                <a href="{{ path('index') }}">Home</a>
+            </li>
+
+            <li>
+                <a href="{{ path('collections') }}">Collections</a>
+                <ul class="sub_menu">
+                    {% for collection in collections %}
+                        <li>
+                            <a href="{{ path('collection_products', {'slug_collection': collection.slug, 'collection_id': collection.id}) }}">{{ collection.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </nav>
+</div>

@@ -8,41 +8,25 @@
                 <img src="https://via.placeholder.com/120x27" alt="IMG-LOGO">
             </a>
 
-            <!-- Menu -->
-            <div class="wrap_menu">
-                <nav class="menu">
-                    <ul class="main_menu">
-
-                        <li class="sale-noti">
-                            <a href="{{ path('index') }}">Home</a>
-                        </li>
-
-                        <li>
-                            <a href="#">Collections</a>
-                            <ul class="sub_menu">
-                                <li><a href="#">Collection 1</a></li>
-                                <li><a href="#">Collection 2</a></li>
-                                <li><a href="#">Collection 3</a></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="#">Contact</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            <!-- Menu collections -->
+            {{ render(controller('App\\Controller\\IndexController::menu_collections')) }}
 
             <!-- Header Icon -->
             <div class="header-icons">
-                <a href="#" class="header-wrapicon1 dis-block">
-                    <img src="{{ asset('images/icons/icon-header-01.png') }}" class="header-icon1" alt="ICON">
-                </a>
 
-                <span class="linedivide1"></span>
+                {% if app.user != null %}
+                    <a href="#" class="header-wrapicon1 dis-block">
+                        <img src="{{ asset('images/icons/icon-header-01.png') }}" class="header-icon1" alt="ICON">
+                    </a>
+                    <span class="linedivide1"></span>
+                {% else %}
+                    <a class="header-wrapicon1 dis-block" href="{{ path('app_login') }}">Connectez-vous !</a>
+                    <span class="linedivide1"></span>
+                {% endif %}
 
                 <div class="header-wrapicon2">
-                    <img src="{{ asset('images/icons/icon-header-02.png') }}" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                    <img src="{{ asset('images/icons/icon-header-02.png') }}"
+                         class="header-icon1 js-show-header-dropdown" alt="ICON">
                     <span class="header-icons-noti">0</span>
 
                     {{ render(controller('App\\Controller\\CartController::partial')) }}
@@ -69,7 +53,8 @@
                 <span class="linedivide2"></span>
 
                 <div class="header-wrapicon2">
-                    <img src="{{ asset('images/icons/icon-header-02.png') }}" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                    <img src="{{ asset('images/icons/icon-header-02.png') }}"
+                         class="header-icon1 js-show-header-dropdown" alt="ICON">
                     <span class="header-icons-noti">0</span>
 
                     <!-- Header cart noti -->
