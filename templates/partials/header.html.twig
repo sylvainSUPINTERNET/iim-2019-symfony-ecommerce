@@ -15,9 +15,16 @@
             <div class="header-icons">
 
                 {% if app.user != null %}
-                    <a href="{{ path('dashboard_commands') }}" class="header-wrapicon1 dis-block">
-                        <img src="{{ asset('images/icons/icon-header-01.png') }}" class="header-icon1" alt="ICON">
-                    </a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('dashboard_admin') }}" class="header-wrapicon1 dis-block">
+                            Dashboard
+                        </a>
+                    {% else %}
+                        <a href="{{ path('dashboard_commands') }}" class="header-wrapicon1 dis-block">
+                            <img src="{{ asset('images/icons/icon-header-01.png') }}" class="header-icon1" alt="ICON">
+                        </a>
+                    {% endif %}
+
                     <a class="header-wrapicon1 dis-block ml-2" href="{{ path('app_logout') }}">Logout</a>
                     <span class="linedivide1"></span>
                 {% else %}

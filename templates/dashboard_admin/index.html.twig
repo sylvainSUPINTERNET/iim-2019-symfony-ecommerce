@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard | ADMIN!{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <ul class="list-group">
+                    <li class="list-group-item active">Lastest users</li>
+                    {% for user in kpi_lastest_user %}
+                        <li class="list-group-item">{{ user.username }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col">
+                <ul class="list-group">
+                    <li class="list-group-item active">CA</li>
+                    <li class="list-group-item">{{ kpi_amount | price_format }}</li>
+                </ul>
+            </div>
+            <div class="col">
+                <ul class="list-group">
+                    <li class="list-group-item active">Total active members</li>
+                    <li class="list-group-item">{{ kpi_members|length }}</li>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-primary btn-md" href="{{ path('product_index') }}">Products management</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-primary btn-md" href="{{ path('admin_commands') }}">Commands management</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-primary btn-md" href="{{ path('user_index') }}">Customers management</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
