@@ -32,8 +32,16 @@
                 <td>{{ product.sku }}</td>
             </tr>
             <tr>
-                <th>PictureUrl</th>
-                <td>{{ product.pictureUrl }}</td>
+                <th>Picture</th>
+                <td>
+                    {% if product.pictureFile != "" %}
+                        <img src="{{ asset('uploads/products_pictures/' ~ product.pictureFile) }}"
+                             class="mw-50 mh-50 rounded"/>
+                    {% else %}
+                        <img src="{{ product.pictureUrl }}" class="img-thumbnail rounded"/>
+                    {% endif %}
+                </td>
+
             </tr>
             <tr>
                 <th>DateAdd</th>

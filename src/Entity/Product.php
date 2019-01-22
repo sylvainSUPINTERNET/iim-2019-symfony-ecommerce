@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Collection as ProductCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -71,14 +72,30 @@ class Product
      */
     private $cartProducts;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @Assert\NotBlank(message="Please, upload the product picture as a jpg / jpeg / png file.")
+     * @Assert\File(
+     *      maxSize="5242880",
+     *      mimeTypes = {
+     *          "image/png",
+     *          "image/jpeg",
+     *          "image/jpg"
+     *      }
+     * )
+     */
+    private $pictureFile;
+
     public function __construct()
     {
         $this->cartProducts = new ArrayCollection();
         $this->commands = new ArrayCollection();
     }
+
     public function __toString()
     {
-       return $this->name;
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -237,6 +254,18 @@ class Product
             $this->commands->removeElement($command);
             $command->removeProduct($this);
         }
+
+        return $this;
+    }
+
+    public function getPictureFile(): ?string
+    {
+        return $this->pictureFile;
+    }
+
+    public function setPictureFile(string $pictureFile): self
+    {
+        $this->pictureFile = $pictureFile;
 
         return $this;
     }

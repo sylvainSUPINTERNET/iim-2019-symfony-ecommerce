@@ -7,11 +7,15 @@
             {% set product = cartProduct.product %}
             <li class="header-cart-item">
                 <div class="header-cart-item-img">
-                    <img src="{{ product.pictureUrl }}" alt="IMG">
+                    {% if product.pictureFile == "" %}
+                        <img src="{{ product.pictureUrl }}" alt="IMG">
+                    {% else %}
+                        <img src="{{ asset('uploads/products_pictures/' ~ product.pictureFile) }}" alt="IMG">
+                    {% endif %}
                 </div>
 
                 <div class="header-cart-item-txt">
-                    <a href="#" class="header-cart-item-name">
+                    <a href="{{ path('product', {'slug': product.slug}) }}" class="header-cart-item-name">
                         {{ product.name }}
                     </a>
 

@@ -14,9 +14,9 @@ class ProductFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $slugify = new Slugify();
-        $faker   = Factory::create('fr_FR');
+        $faker = Factory::create('fr_FR');
 
-        $repository  = $manager->getRepository(Collection::class);
+        $repository = $manager->getRepository(Collection::class);
         $collections = $repository->findAll();
 
         for ($i = 0; $i < 50; $i++) {
@@ -28,6 +28,7 @@ class ProductFixtures extends Fixture
             $product->setPrice(rand(10, 100));
             $product->setSlug($slugify->slugify($name));
             $product->setPictureUrl($faker->imageUrl(710, 960, 'cats'));
+            $product->setPictureFile("");
             $product->setDateAdd(new \DateTime());
             $product->setCollection($collections[rand(0, (count($collections) - 1))]);
             $product->setSku('PRODUCT-' . $i);

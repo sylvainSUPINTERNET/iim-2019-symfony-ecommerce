@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product | {{ product.name }}{% endblock %}
+
+{% block body %}
+    <div class="display-4">{{ product.name | capitalize }}</div>
+    <div class="row">
+        <div class="col-md-4">
+            {% if product.pictureFile != "" %}
+                <img class="rounded img-thumbnail"
+                     src="{{ asset('uploads/products_pictures/' ~ product.pictureFile) }}"/>
+            {% else %}
+                <img src="{{ product.pictureUrl }}"/>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item active">Details</li>
+                <li class="list-group-item">{{ product.name | capitalize }}</li>
+                <li class="list-group-item">{{ product.price | price_format }}</li>
+                <li class="list-group-item">
+                    {% if product.stock > 0 %}
+                        Stock <i class="fa fa-check"></i>
+                    {% else %}
+                        Stock <i class="fa fa-ban"></i>
+                    {% endif %}
+                </li>
+                <li class="list-group-item">SKU : {{ product.sku }}</li>
+                <li class="list-group-item">
+                    <i class="fa fa-tag"></i> <a
+                            href="{{ path('collection_products', {'collection_id': product.collection.id, 'slug_collection': product.collection.slug}) }}">{{ product.collection.name }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-success btn-lg" id="add-to-cart">Add to cart</button>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#add-to-cart').on('click', function () {
+                $.post("{{ path('add_cart_json') }}", {
+                    product_id: {{ product.id }},
+                    quantity: 1
+                });
+            })
+        })
+    </script>
+{% endblock %}

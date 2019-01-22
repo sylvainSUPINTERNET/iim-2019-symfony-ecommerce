@@ -7,17 +7,17 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Slug</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Sku</th>
-                <th>PictureUrl</th>
-                <th>DateAdd</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Slug</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Sku</th>
+            <th>Picture</th>
+            <th>DateAdd</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for product in products %}
@@ -28,7 +28,14 @@
                 <td>{{ product.price }}</td>
                 <td>{{ product.stock }}</td>
                 <td>{{ product.sku }}</td>
-                <td>{{ product.pictureUrl }}</td>
+                <td>
+                    {% if product.pictureFile != "" %}
+                        <img src="{{ asset('uploads/products_pictures/' ~ product.pictureFile) }}"
+                             class="mw-50 mh-50 rounded"/>
+                    {% else %}
+                        <img src="{{ product.pictureUrl }}" class="img-thumbnail rounded"/>
+                    {% endif %}
+                </td>
                 <td>{{ product.dateAdd ? product.dateAdd|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('product_show', {'id': product.id}) }}">show</a>

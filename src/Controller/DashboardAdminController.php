@@ -14,7 +14,7 @@ class DashboardAdminController extends AbstractController
      */
     public function index()
     {
-        $repoUser = $this->getDoctrine()->getRepository(User::class)->findByRole('ROLE_USER');
+        $repoUser = $this->getDoctrine()->getRepository(User::class);
         $repoCmd = $this->getDoctrine()->getRepository(Command::class)->findAll();
         $total_amount = 0;
         foreach ($repoCmd as $command) {

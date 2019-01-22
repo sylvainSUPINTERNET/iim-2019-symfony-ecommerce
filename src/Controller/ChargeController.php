@@ -34,6 +34,8 @@ class ChargeController extends AbstractController
         $repoUser = $this->getDoctrine()->getRepository(User::class);
 
         $newCommand = new Command();
+        $amount = 0;
+
         foreach ($repoCart->getCartProducts() as $item) {
             ($repoProduct->find($item->getProduct()->getId()));
             $newCommand->addProduct($repoProduct->find($item->getProduct()->getId()));
