@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Collection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CollectionController extends AbstractController
@@ -24,7 +25,7 @@ class CollectionController extends AbstractController
     /**
      * @Route("/collection/{slug_collection}/{collection_id}/products", name="collection_products")
      */
-    public function showProductsFromCollection($slug_collection, $collection_id)
+    public function showProductsFromCollection($slug_collection, $collection_id, SessionInterface $session)
     {
         $collections = $this->getDoctrine()->getRepository(Collection::class)->findAll();
 

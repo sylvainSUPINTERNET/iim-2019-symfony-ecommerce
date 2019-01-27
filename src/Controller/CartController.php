@@ -37,16 +37,16 @@ class CartController extends AbstractController
     {
         $repositoryP = $this->getDoctrine()->getRepository(Product::class);
 
-        $product     = $repositoryP->find($request->request->get('product_id'));
+        $product = $repositoryP->find($request->request->get('product_id'));
 
         $objectManager = $this->getDoctrine()->getManager();
 
         if (!$product instanceof Product) {
-            $status  = 'ko';
+            $status = 'ko';
             $message = 'Product not found';
         } else {
             if ($product->getStock() < $request->request->get('quantity')) {
-                $status  = 'ko';
+                $status = 'ko';
                 $message = 'Missing quantity for product';
             } else {
                 $cartId = $session->get('cart');
@@ -72,13 +72,13 @@ class CartController extends AbstractController
                 $objectManager->persist($cartProduct);
                 $objectManager->flush();
 
-                $status  = 'ok';
+                $status = 'ok';
                 $message = 'Added to cart';
             }
         }
 
         return new JsonResponse([
-            'result'  => $status,
+            'result' => $status,
             'message' => $message,
         ]);
     }
